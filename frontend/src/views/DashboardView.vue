@@ -1,23 +1,62 @@
 <template>
-  <div class="mt-20 text-center">
-    <h2 class="text-3xl font-bold">Welcome, {{ user?.name }}!</h2>
+  <section v-if="!user" class="min-h-screen flex items-center justify-center bg-base-200">
+    <span class="loading loading-ring loading-lg"></span>
+  </section>
 
-    <button @click="logout"
-            class="mt-8 bg-gray-300 rounded px-4 py-2 hover:bg-gray-400">
-      Exit
-    </button>
-  </div>
+  <section v-else class="min-h-screen flex items-center justify-center bg-base-200">
+    <div class="card w-full max-w-lg shadow-xl bg-base-100">
+      <div class="card-body items-center text-center space-y-6">
+        <div class="avatar placeholder">
+          <div class="bg-primary text-primary-content rounded-full w-24">
+            <span class="text-3xl">{{ initials }}</span>
+          </div>
+        </div>
+
+        <h2 class="card-title text-2xl">
+          Welcome,&nbsp;<span class="text-primary">{{ user.name }}</span>!
+        </h2>
+
+        <ul class="menu menu-horizontal md:menu-vertical gap-2">
+          <li>
+            <router-link class="btn btn-sm btn-outline" to="/vacations">
+              My requests
+            </router-link>
+          </li>
+          <li v-if="user.role === 'manager'">
+            <router-link class="btn btn-sm btn-outline" to="/manager/vacations">
+              All requests
+            </router-link>
+          </li>
+        </ul>
+
+        <button class="btn btn-error btn-sm" @click="logout">
+          Exit
+        </button>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
-import { useAuth } from '../stores/auth';
+import { computed } from 'vue';
+import { useAuth }   from '@/stores/auth';
 import { useRouter } from 'vue-router';
 
 const auth   = useAuth();
 const router = useRouter();
-const user   = auth.user;
+const user   = computed(() => auth.user);
 
-function logout() {
+const initials = computed(() => {
+  if (!user.value?.name) return '?';
+  return user.value.name
+      .split(' ')
+      .map(p => p[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+});
+
+function logout () {
   auth.logout();
   router.push('/login');
 }

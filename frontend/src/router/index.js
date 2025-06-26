@@ -21,9 +21,15 @@ router.beforeEach(async (to) => {
 
     if (!auth.user && auth.token) await auth.fetchMe();
 
-    if (to.meta.role && auth.user?.role !== to.meta.role) return '/dashboard';
-    if (to.meta.auth && !auth.user) return '/login';
-    if (to.meta.guest && auth.user) return '/dashboard';
+    if (to.meta.auth && !auth.user) {
+        return '/login'
+    }
+    if (to.meta.guest && auth.user) {
+        return '/dashboard'
+    }
+    if (to.meta.role && auth.user?.role !== to.meta.role) {
+        return '/dashboard'
+    }
 });
 
 export default router;

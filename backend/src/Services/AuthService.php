@@ -9,6 +9,13 @@ class AuthService
 {
     public function __construct(private PDO $db) {}
 
+    public function findUser(int $id): ?array
+    {
+        $stmt = $this->db->prepare('SELECT id,name,email,role FROM users WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
     /** @return array{token:string,user:array}|null */
     public function attempt(string $email, string $password): ?array
     {

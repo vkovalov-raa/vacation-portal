@@ -8,4 +8,14 @@ api.interceptors.request.use(config => {
     return config;
 });
 
+api.interceptors.response.use(
+    res => res,
+    err => {
+        if (err.response?.status === 403) {
+            router.push('/dashboard');
+        }
+        return Promise.reject(err);
+    }
+);
+
 export default api;

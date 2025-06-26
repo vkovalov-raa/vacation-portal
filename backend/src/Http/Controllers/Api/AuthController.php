@@ -22,6 +22,14 @@ class AuthController
 
     public function me(): JsonResponse
     {
-        return new JsonResponse($GLOBALS['auth_user']);
+        $payload = $GLOBALS['auth_user'] ?? null;
+        if (!$payload) {
+            return new JsonResponse(['message' => 'Unauthorized'], 401);
+        }
+
+        $user = $this->auth->findUser($payload['sub']);
+        return $user
+            ? new JsonResponse($user)
+            : new JsonResponse(['message' => 'User not found'], 404);
     }
 }
