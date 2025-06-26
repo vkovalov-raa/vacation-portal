@@ -6,6 +6,7 @@ Test project: **PHP 8.3 + MySQL 8 + Vue 3** (Vite) in Docker.
 |-----------------------------|-----------|------------------|
 | http://localhost:8080       | `web`     | JSON API backend |
 | http://localhost:5173       | `node`    | SPA frontend     |
+| http://localhost:8025       | `mailhog` | Mailer           |
 
 ## Demo credentials
 
