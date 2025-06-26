@@ -29,6 +29,11 @@
               All requests
             </router-link>
           </li>
+          <li v-if="user.role === 'manager'">
+            <router-link class="btn btn-sm btn-outline" to="/manager/users">
+              Users
+            </router-link>
+          </li>
         </ul>
 
         <button class="btn btn-error btn-sm" @click="logout">

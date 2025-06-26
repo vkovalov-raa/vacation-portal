@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VacationController;
 use App\Services\AuthService;
+use App\Services\UserService;
 use App\Services\VacationService;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
@@ -35,10 +37,12 @@ function container(string $class)
         // --- Services
         AuthService::class => new AuthService(container(PDO::class)),
         VacationService::class => new VacationService(container(PDO::class)),
+        UserService::class => new UserService(container(PDO::class)),
 
         // --- Controllers
         AuthController::class => new AuthController(container(AuthService::class)),
         VacationController::class => new VacationController(container(VacationService::class)),
+        UserController::class => new UserController(container(UserService::class)),
 
         default => new $class()
     };
