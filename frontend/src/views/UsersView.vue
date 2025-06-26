@@ -4,9 +4,9 @@ import { useUsers } from '@/stores/users';
 
 const users = useUsers();
 const show  = ref(false);
-const form  = ref({ name:'', email:'', password:'', role:'employee' });
+const form  = ref({ name:'', email:'', employee_code:'', password:'', role:'employee' });
 
-function openNew() { form.value={name:'',email:'',password:'',role:'employee'}; show.value=true; }
+function openNew() { form.value={name:'', email:'', employee_code:'', password:'', role:'employee'}; show.value=true; }
 function save() {
   users.create(form.value);
   show.value=false;
@@ -24,10 +24,10 @@ onMounted(users.fetchAll);
     </div>
 
     <table class="table w-full">
-      <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th></th></tr></thead>
+      <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Employee Code</th><th>Role</th><th></th></tr></thead>
       <tbody>
       <tr v-for="u in users.list" :key="u.id">
-        <td>{{u.id}}</td><td>{{u.name}}</td><td>{{u.email}}</td><td>{{u.role}}</td>
+        <td>{{u.id}}</td><td>{{u.name}}</td><td>{{u.email}}</td><td>{{u.employee_code}}</td><td>{{u.role}}</td>
         <td><button class="btn btn-xs btn-error" @click="users.remove(u.id)">✕</button></td>
       </tr>
       </tbody>
@@ -38,6 +38,7 @@ onMounted(users.fetchAll);
         <h3 class="font-bold text-lg">New user</h3>
         <input v-model="form.name"  class="input input-bordered w-full" placeholder="Name">
         <input v-model="form.email" class="input input-bordered w-full" placeholder="Email">
+        <input v-model="form.employee_code" class="input input-bordered w-full" placeholder="Employee Code">
         <input v-model="form.password" type="password" class="input input-bordered w-full" placeholder="Password">
         <select v-model="form.role" class="select select-bordered w-full">
           <option value="employee">employee</option>

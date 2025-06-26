@@ -10,7 +10,7 @@ class UserService
 
     public function all(): array
     {
-        return $this->db->query('SELECT id,name,email,role FROM users')->fetchAll(PDO::FETCH_ASSOC);
+        return $this->db->query('SELECT id,name,email,employee_code,role FROM users')->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function create(array $data): int
