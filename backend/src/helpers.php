@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Services\AuthService;
+use App\Services\VacationService;
 use Firebase\JWT\JWT;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
@@ -34,6 +35,7 @@ function container(string $class)
 
         // --- Services
         AuthService::class => new AuthService(container(PDO::class)),
+        VacationService::class => new VacationService(container(PDO::class)),
 
         // --- Controllers
         AuthController::class => new AuthController(container(AuthService::class)),
