@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VacationController;
 use App\Services\AuthService;
+use App\Services\MailerService;
 use App\Services\UserService;
 use App\Services\VacationService;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
@@ -36,8 +37,9 @@ function container(string $class)
 
         // --- Services
         AuthService::class => new AuthService(container(PDO::class)),
-        VacationService::class => new VacationService(container(PDO::class)),
+        VacationService::class => new VacationService(container(PDO::class), container(MailerService::class)),
         UserService::class => new UserService(container(PDO::class)),
+        MailerService::class => new MailerService(),
 
         // --- Controllers
         AuthController::class => new AuthController(container(AuthService::class)),

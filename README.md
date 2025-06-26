@@ -49,8 +49,8 @@ Composer dependencies are installed **inside the image** (see `backend/Dockerfil
 docker compose logs -f app    # PHP
 docker compose logs -f node   # Vite (frontend)
 
-# stop & remove containers
-docker compose down
+# stop & remove containers & volumes
+docker-compose down -v
 ```
 
 ---
