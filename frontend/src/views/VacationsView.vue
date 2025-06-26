@@ -34,6 +34,6 @@ onMounted(vac.fetchMine);
       </tbody>
     </table>
 
-    <VacationForm v-model:show="show" />
+    <VacationForm v-model="show" />
   </div>
 </template>

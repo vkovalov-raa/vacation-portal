@@ -1,17 +1,25 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useVacations } from '@/stores/vacations';
 
 const show   = defineModel({ type: Boolean });
+const dialog = ref(null);
 const start  = ref('');
 const end    = ref('');
 const reason = ref('');
 const vac    = useVacations();
 
+watch(show, (val) => {
+  if (val) dialog.value?.showModal();
+  else     dialog.value?.close();
+});
+
+function close() { show.value = false; }
+
 async function submit() {
   await vac.create(start.value, end.value, reason.value);
-  show.value = false;
   start.value = end.value = reason.value = '';
+  close();
 }
 </script>
 
