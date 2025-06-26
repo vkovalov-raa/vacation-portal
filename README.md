@@ -27,8 +27,18 @@ cp backend/.env.example backend/.env
 docker compose up --build -d
 ```
 
-Composer dependencies are installed **inside the image** (see `backend/Dockerfile`),  
-and first‑run migrations + seeds are applied automatically.
+Composer dependencies are installed **inside the image** (see `backend/Dockerfile`).
+
+## Database Migrations
+
+1. **Run all pending migrations**
+   ```bash
+   docker compose exec app vendor/bin/phinx migrate
+   ```
+2. **Run seeders**
+   ```bash
+   docker compose exec app vendor/bin/phinx seed:run
+   ```
 
 ---
 
