@@ -1,3 +1,4 @@
 /backend/vendor
 /backend/.env
 /frontend/.env
+/backend/.phpunit.result.cache
