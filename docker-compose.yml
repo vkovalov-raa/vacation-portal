@@ -3,7 +3,6 @@ services:
     build: ./backend
     volumes:
       - ./backend:/var/www
-      - vendor_data:/var/www/vendor
     environment:
       APP_ENV: ${APP_ENV:-local}
       DB_HOST: ${DB_HOST:-db}
@@ -15,6 +14,7 @@ services:
     depends_on:
       - db
     networks: [ internal ]
+    command: sh -c "composer install && php-fpm -y /usr/local/etc/php-fpm.conf -R"
 
   web:
     image: nginx:1.27-alpine
@@ -52,7 +52,6 @@ services:
 
 volumes:
   dbdata:
-  vendor_data:
 
 networks:
   internal:

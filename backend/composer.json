@@ -9,7 +9,9 @@
     "doctrine/dbal": "^4.2",
     "symfony/http-foundation": "^7",
     "symfony/security-csrf": "^7",
-    "firebase/php-jwt": "^6.11"
+    "firebase/php-jwt": "^6.11",
+    "symfony/mailer": "^7.3",
+    "symfony/mime": "^7.3"
   },
   "autoload": {
     "psr-4": {
