@@ -3,6 +3,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/var/www
+      - vendor_data:/var/www/vendor
     environment:
       APP_ENV: ${APP_ENV:-local}
       DB_HOST: ${DB_HOST:-db}
@@ -51,6 +52,7 @@ services:
 
 volumes:
   dbdata:
+  vendor_data:
 
 networks:
   internal:

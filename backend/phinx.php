@@ -5,8 +5,10 @@ return [
         'migrations' => 'db/migrations',
         'seeds'      => 'db/seeds',
     ],
+
+    'default_environment' => 'development',
+
     'environments' => [
-        'default_environment' => 'development',
         'environments' => [
             'development' => [
                 'adapter' => 'mysql',

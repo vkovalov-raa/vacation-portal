@@ -1,5 +1,6 @@
 {
   "name": "vacation-portal-frontend",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -27,6 +28,5 @@
   "main": "vite.config.js",
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "license": "ISC"
 }
