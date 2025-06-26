@@ -3,6 +3,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\VacationController;
 use App\Http\Middleware\Role;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Http\Middleware\JwtAuth;
 
 return function (FastRoute\RouteCollector $r) {
 
@@ -15,15 +16,15 @@ return function (FastRoute\RouteCollector $r) {
         $r->addRoute('GET', '/me', [AuthController::class, 'me']);
 
         /* employee */
-        $r->addRoute('GET',  '/vacations', [VacationController::class, 'index']);
-        $r->addRoute('POST', '/vacations', [VacationController::class, 'store']);
+        $r->addRoute('GET',  '/vacations', JwtAuth::wrap([VacationController::class, 'index']));
+        $r->addRoute('POST', '/vacations', JwtAuth::wrap([VacationController::class, 'store']));
 
         /* manager */
         $r->addRoute('GET',   '/manager/vacations',
-            Role::only('manager', fn (...$a) => (container(VacationController::class))->all(...$a))
+            JwtAuth::wrap(Role::only('manager', fn (...$a) => (container(VacationController::class))->all(...$a)))
         );
         $r->addRoute('PATCH', '/manager/vacations/{id:\d+}',
-            Role::only('manager', fn (...$a) => (container(VacationController::class))->updateStatus(...$a))
+            JwtAuth::wrap(Role::only('manager', fn (...$a) => (container(VacationController::class))->updateStatus(...$a)))
         );
 
         $r->addRoute(

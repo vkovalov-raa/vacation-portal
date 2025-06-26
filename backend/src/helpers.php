@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\VacationController;
 use App\Services\AuthService;
 use App\Services\VacationService;
-use Firebase\JWT\JWT;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
 /**
- * Простейший DI-контейнер-singletons.
- * Вызывает себя так: container(PDO::class) или container(AuthController::class)
+ * DI singleton
  */
 function container(string $class)
 {
@@ -39,6 +38,7 @@ function container(string $class)
 
         // --- Controllers
         AuthController::class => new AuthController(container(AuthService::class)),
+        VacationController::class => new VacationController(container(VacationService::class)),
 
         default => new $class()
     };
