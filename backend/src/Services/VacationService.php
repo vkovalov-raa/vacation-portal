@@ -30,11 +30,19 @@ class VacationService
         $author = $this->db->query("SELECT name,email FROM users WHERE id=$userId")
             ->fetch(PDO::FETCH_ASSOC);
 
-        $this->mail->notify(
-            'admin@company.test',
-            'New vacation request',
-            "<p>User <b>{$author['name']}</b> requested vacation <b>$start – $end</b>.</p>"
-        );
+        $managers = $this->db->query(
+            "SELECT email FROM users WHERE role = 'manager'"
+        )->fetchAll(PDO::FETCH_COLUMN);
+
+        if ($managers) {
+            $subject = 'New vacation request';
+            $html    = "<p>User <b>{$author['name']}</b> requested vacation "
+                . "<b>$start – $end</b>.</p>";
+
+            foreach ($managers as $email) {
+                $this->mail->notify($email, $subject, $html);
+            }
+        }
 
         return (int)$this->db->lastInsertId();
     }
@@ -53,8 +61,8 @@ class VacationService
             throw new \InvalidArgumentException('Bad status');
         }
 
-//        $this->db->prepare('UPDATE vacation_requests SET status=? WHERE id=?')
-//            ->execute([$status, $id]);
+        $this->db->prepare('UPDATE vacation_requests SET status=? WHERE id=?')
+            ->execute([$status, $id]);
 
         /* notify employee */
         $row = $this->db->query(
