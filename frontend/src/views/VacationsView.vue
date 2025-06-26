@@ -11,9 +11,14 @@ onMounted(vac.fetchMine);
 
 <template>
   <div class="max-w-3xl mx-auto mt-10 space-y-6">
-    <div class="flex justify-between items-center">
-      <h2 class="text-2xl font-bold">My requests</h2>
-      <button class="btn btn-primary" @click="show=true">New</button>
+    <div class="flex justify-between items-center mb-4">
+      <router-link to="/dashboard" class="btn btn-outline btn-sm">
+        ← Back
+      </router-link>
+
+      <h2 class="text-2xl font-bold flex-1 text-center">My requests</h2>
+
+      <button class="btn btn-primary btn-sm" @click="show = true">New</button>
     </div>
 
     <table class="table w-full">

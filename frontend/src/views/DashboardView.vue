@@ -7,8 +7,10 @@
     <div class="card w-full max-w-lg shadow-xl bg-base-100">
       <div class="card-body items-center text-center space-y-6">
         <div class="avatar placeholder">
-          <div class="bg-primary text-primary-content rounded-full w-24">
-            <span class="text-3xl">{{ initials }}</span>
+          <div class="bg-primary text-primary-content rounded-full w-24 aspect-square overflow-hidden">
+            <div class="flex items-center justify-center w-full h-full">
+              <span class="text-3xl">{{ initials }}</span>
+            </div>
           </div>
         </div>
 

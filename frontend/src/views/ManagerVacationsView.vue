@@ -13,7 +13,13 @@ function set(id, status) {
 
 <template>
   <div class="max-w-4xl mx-auto mt-10 space-y-6">
-    <h2 class="text-2xl font-bold">All employee requests</h2>
+    <div class="flex justify-between items-center mb-4">
+      <router-link to="/dashboard" class="btn btn-outline btn-sm">
+        ← Back
+      </router-link>
+
+      <h2 class="text-2xl font-bold flex-1 text-center">All requests</h2>
+    </div>
 
     <table class="table w-full">
       <thead>

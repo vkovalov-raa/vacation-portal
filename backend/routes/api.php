@@ -13,13 +13,11 @@ return function (FastRoute\RouteCollector $r) {
     // protected
     $r->addGroup('/api', function (FastRoute\RouteCollector $r) {
 
-        $r->addRoute('GET', '/me', [AuthController::class, 'me']);
+        $r->addRoute('GET', '/me', JwtAuth::wrap([AuthController::class, 'me']));
 
-        /* employee */
         $r->addRoute('GET',  '/vacations', JwtAuth::wrap([VacationController::class, 'index']));
         $r->addRoute('POST', '/vacations', JwtAuth::wrap([VacationController::class, 'store']));
 
-        /* manager */
         $r->addRoute('GET',   '/manager/vacations',
             JwtAuth::wrap(Role::only('manager', fn (...$a) => (container(VacationController::class))->all(...$a)))
         );
