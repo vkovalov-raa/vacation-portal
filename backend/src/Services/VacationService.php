@@ -1,7 +1,6 @@
 <?php
 namespace App\Services;
 
-use App\Services\MailerService;
 use PDO;
 
 class VacationService
@@ -11,6 +10,10 @@ class VacationService
         private MailerService $mail
     ) {}
 
+    /**
+     * @param  int $userId
+     * @return array<int,array{id:int,user_id:int,start_date:string,end_date:string,reason:?string,status:string,created_at:string}>
+     */
     public function listForUser(int $userId): array
     {
         return $this->db->query(
@@ -47,6 +50,9 @@ class VacationService
         return (int)$this->db->lastInsertId();
     }
 
+    /**
+     * @return array<int,array>
+     */
     public function listAll(): array
     {
         return $this->db->query(
@@ -55,6 +61,12 @@ class VacationService
         )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $id
+     * @param string $status
+     *
+     * @throws \InvalidArgumentException
+     */
     public function setStatus(int $id, string $status): void
     {
         if (!in_array($status, ['approved', 'rejected'], true)) {

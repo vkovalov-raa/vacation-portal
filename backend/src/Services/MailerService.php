@@ -16,6 +16,11 @@ class MailerService
         $this->mailer = new Mailer($transport);
     }
 
+    /**
+     * @param string $to
+     * @param string $subject
+     * @param string $html
+     */
     public function notify(string $to, string $subject, string $html): void
     {
         $email = (new Email())

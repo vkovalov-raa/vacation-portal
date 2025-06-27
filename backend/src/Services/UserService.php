@@ -8,6 +8,9 @@ class UserService
 {
     public function __construct(private PDO $db) {}
 
+    /**
+     * @return array<int,array{id:int,name:string,email:string,employee_code:?string,role:string}>
+     */
     public function all(): array
     {
         return $this->db->query('SELECT id,name,email,employee_code,role FROM users')->fetchAll(PDO::FETCH_ASSOC);
@@ -28,6 +31,16 @@ class UserService
         return (int)$this->db->lastInsertId();
     }
 
+    /**
+     * @param int $id
+     * @param array{
+     *   name?:string,
+     *   email?:string,
+     *   password?:string,
+     *   role?:string,
+     *   employee_code?:string|null
+     * } $data
+     */
     public function update(int $id, array $data): void
     {
         $fields = [];
@@ -43,6 +56,9 @@ class UserService
         $this->db->prepare($sql)->execute($params);
     }
 
+    /**
+     * @param int $id
+     */
     public function delete(int $id): void
     {
         $this->db->prepare('DELETE FROM users WHERE id=?')->execute([$id]);

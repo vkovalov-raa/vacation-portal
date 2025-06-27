@@ -9,6 +9,10 @@ class AuthService
 {
     public function __construct(private PDO $db) {}
 
+    /**
+     * @param  int $id
+     * @return array{id:int,name:string,email:string,role:string}|null
+     */
     public function findUser(int $id): ?array
     {
         $stmt = $this->db->prepare('SELECT id,name,email,role FROM users WHERE id = ?');
@@ -44,6 +48,10 @@ class AuthService
         ]];
     }
 
+    /**
+     * @param  string $jwt
+     * @return array|null
+     */
     public function decode(string $jwt): ?array
     {
         try {

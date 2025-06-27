@@ -3,7 +3,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VacationController;
 use App\Http\Middleware\Role;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Http\Middleware\JwtAuth;
 
 return function (FastRoute\RouteCollector $r) {
